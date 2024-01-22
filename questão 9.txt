@@ -1,0 +1,40 @@
+-- Criação da tabela Voo_TAM
+CREATE TABLE Voo_TAM (
+    idVoo SERIAL PRIMARY KEY,
+    cidOrigem VARCHAR(50),
+    cidDestino VARCHAR(50)
+);
+
+-- Inserção de dados na tabela Voo_TAM
+INSERT INTO Voo_TAM (cidOrigem, cidDestino) VALUES
+('São Paulo', 'Manaus'),
+('São Paulo', 'Blumenau'),
+('Manaus', 'Rio Branco'),
+('Manaus', 'São Paulo'),
+('Rio de Janeiro', 'São Paulo'),
+('Vitória', 'Rio de Janeiro'),
+('Natal', 'Fortaleza');
+
+-- Criação da tabela Voo_GOL
+CREATE TABLE Voo_GOL (
+    idVoo SERIAL PRIMARY KEY,
+    cidOrigem VARCHAR(50),
+    cidDestino VARCHAR(50)
+);
+
+-- Inserção de dados na tabela Voo_GOL
+INSERT INTO Voo_GOL (cidOrigem, cidDestino) VALUES
+('São Paulo', 'Manaus'),
+('São Paulo', 'Brasília'),
+('Manaus', 'Porto Velho'),
+('Brasília', 'São Paulo'),
+('Porto Alegre', 'São Paulo'),
+('Florianópolis', 'Rio de Janeiro'),
+('Salvador', 'Fortaleza');
+
+SELECT VT.idVoo, VT.cidOrigem, VT.cidDestino
+from Voo_TAM VT
+WHERE (VT.cidOrigem IN ('Manaus', 'Salvador', 'São Paulo')
+ OR VT.cidDEstino = 'Rio de Janeiro')
+AND EXISTS (SELECT * FROM Voo_GOL VG
+WHERE VG.cidDestino = 'Fortaleza');

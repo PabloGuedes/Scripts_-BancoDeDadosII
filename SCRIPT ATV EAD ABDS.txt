@@ -1,0 +1,49 @@
+CREATE SEQUENCE sidusuarios;
+CREATE SEQUENCE sidgrupos;
+CREATE SEQUENCE sidmenus;
+CREATE SEQUENCE sidgruposmenus;
+
+CREATE TABLE usuarios
+(
+	idusuarios INTEGER PRIMARY KEY,
+	username VARCHAR (45),
+	password VARCHAR (100),
+	loginAte DATE,
+	idgrupos INTEGER,
+	CONSTRAINT grupos_fk FOREIGN KEY (idgrupos) REFERENCES grupos (idgrupos)
+)
+INSERT INTO usuarios VALUES (nextval('sidusuarios'), 'Pablo', 'abcde12345', '15/06/2025', 1);
+INSERT INTO usuarios VALUES (nextval('sidusuarios'), 'Evandro', '12345abcde', '15/06/2025', 2);
+
+
+CREATE TABLE grupos
+(
+	idgrupos INTEGER PRIMARY KEY,
+	descricaogrupos VARCHAR (45)
+)
+INSERT INTO grupos VALUES (nextval('sidgrupos'), 'Vendedor');
+INSERT INTO grupos VALUES (nextval('sidgrupos'), 'Crediário');
+
+CREATE TABLE menus
+(
+	idmenus INTEGER PRIMARY KEY,
+	descricaomenus VARCHAR (45)
+)
+INSERT INTO menus VALUES (nextval('sidmenus'), 'Cliente');
+INSERT INTO menus VALUES (nextval('sidmenus'), 'Pedido');
+
+CREATE TABLE grupos_menus
+(
+	idgruposmenus INTEGER PRIMARY KEY,
+	idmenus INTEGER,
+	idgrupos INTEGER,
+	gm_create INTEGER,
+	gm_read INTEGER,
+	gm_update INTEGER,
+	gm_delete INTEGER,
+	CONSTRAINT menus_fk FOREIGN KEY (idmenus) REFERENCES menus (idmenus),
+	CONSTRAINT grupos_fk FOREIGN KEY (idgrupos) REFERENCES grupos (idgrupos)
+)
+INSERT INTO grupos_menus VALUES (nextval('sidgruposmenus'), 1, 1, 0, 1, 0, 0);
+INSERT INTO grupos_menus VALUES (nextval('sidgruposmenus'), 2, 1, 1, 1, 1, 1);
+INSERT INTO grupos_menus VALUES (nextval('sidgruposmenus'), 2, 2, 1, 1, 1, 1);

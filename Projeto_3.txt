@@ -1,0 +1,55 @@
+CREATE TABLE cliente
+(
+	id_cliente serial,
+	nome character varying(50),
+	logradouro character varying(50),
+	numero integer,
+	bairro character varying(30),
+	cidade character varying(30),
+	estado character varying(2),
+	cep character varying(9),
+	cpf character varying(14),
+	rg character varying(15),
+	CONSTRAINT cliente_pkey PRIMARY KEY (id_cliente)
+)
+
+create table fornecedor(
+	id_for serial,
+	nome_for character varying(50),
+	cnpj_for character varying(15),
+	tel_for character varying(13),
+	data_cad_for date,
+	constraint fornecedor_pkey primary key (id_for)
+)
+
+create table produto(
+	id_prod serial,
+	nome_prod character varying(50),
+	desc_prod character varying(50),
+	cod_bar_prod character varying(13),
+	p_custo_prod double precision,
+	p_venda_prod double precision,
+	id_for integer,
+	constraint produto_pkey primary key (id_prod),
+	constraint fornecedor_fk foreign key (id_for) references fornecedor (id_for)
+)
+
+create table venda
+(
+	id_vend serial,
+	data_vend date,
+	val_vend double precision,
+	id_cliente integer,
+	constraint venda_pkey primary key (id_vend),
+	constraint venda_id_cliente_fkey foreign key (id_cliente) references cliente (id_cliente)
+)
+
+create table produto_venda
+(
+	id_prod integer,
+	id_vend integer,
+	val_prod double precision,
+	qtd_prod integer,
+	constraint produto_venda_id_prod_fkey foreign key (id_prod) references produto (id_prod),
+	constraint produto_venda_id_vend_fkey foreign key (id_vend) references venda (id_vend)
+)

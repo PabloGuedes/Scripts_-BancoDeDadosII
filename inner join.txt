@@ -1,0 +1,19 @@
+-- JUNÇÃO
+
+SELECT pnome, nomeCurso FROM curso C, aluno A WHERE C.idcurso = A.idcurso;
+
+SELECT pnome, nomeCurso FROM curso, aluno WHERE curso.idCurso = aluno.idCurso;
+
+SELECT pnome, nomeCurso FROM curso C INNER JOIN Aluno A ON C.idcurso = A.idCurso;
+
+SELECT pnome, ano FROM professor, professorlecionaaluno PLA WHERE professor.prontuario = PLA.prontuarioprofessor AND ano = 2009;
+
+SELECT pnome, ano FROM professor P INNER JOIN professorlecionaaluno PLA ON P.prontuario = PLA.prontuarioprofessor WHERE ano = 2009;
+
+SELECT pnome, nota, ano, nomeCurso FROM aluno A, curso C, professorlecionaaluno PLA WHERE c.idCurso = A.idCurso AND A.prontuario = PLA.prontuarioaluno AND PLA.nota > 7;
+
+--EX 1
+SELECT pnome, sexo, nomecurso FROM aluno A, curso C WHERE A.idcurso = C.idcurso AND nomecurso = 'Medicina';
+
+--EX 2
+SELECT pnome, avg(nota) AS "Média" FROM professor P, professorlecionaaluno PLA WHERE p.prontuario = pla.prontuarioprofessor GROUP BY pnome ORDER BY AVG (nota);

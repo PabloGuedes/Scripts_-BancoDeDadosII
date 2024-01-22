@@ -1,0 +1,18 @@
+-- Consulta para retornar o nome dos inquilinos, o nome do corretor 
+-- e o tipo de imóvel alugado ordenado em ordem crescente da data de 
+-- início da locação:
+SELECT i.nome, c.nome, im.tipoImovel, a.dataIniLocacao
+FROM Inquilino i
+JOIN ALUGUEL a ON i.cpf = a.cpfInquilino
+JOIN Imovel im ON a.idImovel = im.idImovel
+JOIN CORRETOR c ON a.creciCorretor = c.creci
+ORDER BY a.dataIniLocacao ASC;
+
+-- Consulta utilizando subconsultas para retornar o tipo de imóvel e 
+-- a quantidade de cada tipo que tenha valor do aluguel maior que 900 
+-- reais que estão alugados:
+SELECT tipoImovel, COUNT(*) AS quantidade
+FROM imovel i
+JOIN aluguel a ON i.idImovel = a.idImovel
+WHERE a.dataFimLocacao IS NULL OR a.dataFimLocacao > CURRENT_DATE
+GROUP BY tipoImovel;

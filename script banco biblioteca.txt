@@ -1,0 +1,10 @@
+create table livro(
+	id_livro serial,
+	isbn_livro integer,
+	nome_livro varchar (50),
+	editora_livro varchar (50),
+	autor_livro varchar (50),
+	numpag_livro integer,
+	genero_livro varchar (50),
+	constraint livro_pkey primary key (id_livro)
+)
